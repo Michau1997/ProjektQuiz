@@ -9,10 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.example.projektquiz.QuizContract.QuestionsTable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class QuizDbHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME ="MyAwesomeQuiz.db";
+    private static final String DATABASE_NAME ="Quiz.db";
     private static final int DATABASE_VERSION = 1;
 
     private SQLiteDatabase db;
@@ -45,15 +44,15 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
     private void fillQuestionsTable(){
-        Question q1 = new Question("A is correct", "A", "B", "C", 1);
+        Question q1 = new Question("Kładziesz się spać o godzinie 9:00. Wstajesz o godzinie 8:00. Ile godzin śpisz?", "a) 1 godzinę", "b) 12 godzin", "c) 13 godzin", 1);
         addQuestion(q1);
-        Question q2 = new Question("B is correct", "A", "B", "C", 2);
+        Question q2 = new Question("Każdy kij ma dwa końce. Ile końców ma 7,5 kija?", "a) 7,5", "b) 15", "c) 16", 3);
         addQuestion(q2);
-        Question q3 = new Question("C is correct", "A", "B", "C", 3);
+        Question q3 = new Question("Przy dwóch rękach masz 10 palców. Ile palców jest u 10-ciu rąk?", "a) 10", "b) 50", "c) 100", 2);
         addQuestion(q3);
-        Question q4 = new Question("A is correct again", "A", "B", "C", 1);
+        Question q4 = new Question("Jeśli wskazówka godziny zegara zmieniłaby kąt o 1/60 stopnia co minutę, to o ile stopni zmieni się kąt w ciągu godziny?", "a) O 360 stopni", "b) O 1 stopień", "c) O 60 stopni", 2);
         addQuestion(q4);
-        Question q5 = new Question("B is correct again", "A", "B", "C", 2);
+        Question q5 = new Question("Boisko w której z tych dyscyplin jest najmniejsze?", "a) Piłki nożnej", "b) Golfa", "c) Tenisa", 1);
         addQuestion(q5);
     }
     private void addQuestion(Question question) {
@@ -65,8 +64,8 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         cv.put(QuestionsTable.COLUMN_ANSWER_NR, question.getAnswerNr());
         db.insert(QuestionsTable.TABLE_NAME,null, cv);
     }
-    public List<Question> getAllQuestions() {
-        List<Question> questionList = new ArrayList<>();
+    public ArrayList<Question> getAllQuestions() {
+        ArrayList<Question> questionList = new ArrayList<>();
         db = getReadableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM " + QuizContract.QuestionsTable.TABLE_NAME,null);
 
